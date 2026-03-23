@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Gold Traders - Premium Gold Jewelry</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Header */
+        header { background: linear-gradient(135deg, #1a1a1a, #333); color: white; padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .logo { font-size: 1.8rem; font-weight: bold; color: #ffd700; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { color: white; text-decoration: none; transition: color 0.3s; }
+        .nav-links a:hover { color: #ffd700; }
+        .cart-btn { background: #ffd700; color: #1a1a1a; padding: 0.5rem 1rem; border-radius: 25px; text-decoration: none; font-weight: bold; }
+        
+        /* Hero */
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231a1a1a" width="1200" height="600"/><circle fill="%23ffd700" opacity="0.1" cx="300" cy="200" r="150"/><circle fill="%23ffd700" opacity="0.05" cx="900" cy="400" r="200"/></svg>'); height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+        .hero-content h1 { font-size: 4rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.3rem; margin-bottom: 2rem; }
+        .cta-btn { background: #ffd700; color: #1a1a1a; padding: 1rem 2rem; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; text-decoration: none; font-weight: bold; transition: transform 0.3s; }
+        .cta-btn:hover { transform: scale(1.05); }
+        
+        /* Products */
+        .products { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #1a1a1a; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .product-image { height: 250px; background: linear-gradient(45deg, #ffd700, #ffed4e); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #1a1a1a; }
+        .product-info { padding: 1.5rem; }
+        .product-title { font-size: 1.3rem; margin-bottom: 0.5rem; color: #1a1a1a; }
+        .product-price { font-size: 1.8rem; font-weight: bold; color: #ffd700; margin-bottom: 1rem; }
+        .product-weight { color: #666; margin-bottom: 1rem; }
+        .add-to-cart { width: 100%; background: #1a1a1a; color: #ffd700; border: none; padding: 1rem; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: background 0.3s; }
+        .add-to-cart:hover { background: #ffd700; color: #1a1a1a; }
+        
+        /* Cart */
+        .cart { position: fixed; top: 80px; right: -400px; width: 400px; height: calc(100vh - 80px); background: white; box-shadow: -5px 0 20px rgba(0,0,0,0.1); transition: right 0.3s; z-index: 1001; padding: 2rem; }
+        .cart.open { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .cart-items { max-height: 400px; overflow-y: auto; }
+        .cart-total { font-size: 1.5rem; font-weight: bold; margin: 2rem 0; color: #1a1a1a; }
+        .checkout-btn { width: 100%; background: #ffd700; color: #1a1a1a; border: none; padding: 1rem; border-radius: 10px; font-size: 1.2rem; cursor: pointer; }
+        
+        /* Footer */
+        footer { background: #1a1a1a; color: white; text-align: center; padding: 3rem 2rem; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .products-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🪙 BLACK GOLD</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#" class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i> Cart (0)
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Premium Gold Jewelry</h1>
+            <p>24K Pure Gold | Certified Purity | Lifetime Guarantee</p>
+            <a href="#products" class="cta-btn">Shop Collection</a>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="products">
+        <h2 class="section-title">Our Gold Collection</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Shopping Cart -->
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <span onclick="toggleCart()" style="cursor: pointer; font-size: 1.5rem;">×</span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total" id="cartTotal">$0.00</div>
+        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Black Gold Traders. All rights reserved. | 24K Certified Gold</p>
+    </footer>
+
+    <script>
+        // Gold Products Data
+        const goldProducts = [
+            {
+                id: 1,
+                name: "24K Gold Chain Necklace",
+                price: 2999,
+                weight: "18g",
+                image: "🔗"
+            },
+            {
+                id: 2,
+                name: "Gold Wedding Band",
+                price: 1899,
+                weight: "12g",
+                image: "💍"
+            },
+            {
+                id: 3,
+                name: "Gold Bracelet",
+                price: 2499,
+                weight: "22g",
+                image: "📿"
+            },
+            {
+                id: 4,
+                name: "Gold Earrings",
+                price: 1299,
+                weight: "8g",
+                image: "👂"
+            },
+            {
+                id: 5,
+                name: "Gold Pendant",
+                price: 899,
+                weight: "6g",
+                image: "⛓️"
+            },
+            {
+                id: 6,
+                name: "Gold Bangle",
+                price: 3499,
+                weight: "28g",
+                image: "🌀"
+            }
+        ];
+
+        let cart = [];
+
+        // Load Products
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = goldProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">$${product.price.toLocaleString()}</div>
+                        <div class="product-weight">Weight: ${product.weight} | 24K Pure</div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = goldProducts.find(p => p.id === productId);
+            const cartItem = cart.find(item => item.id === productId);
+            
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCart();
+            alert(`${product.name} added to cart!`);
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartBtn = document.querySelector('.cart-btn');
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        $${item.price.toLocaleString()} x ${item.quantity}
+                    </div>
+                    <div>
+                        $${(item.price * item.quantity).toLocaleString()}
+                        <br><small onclick="removeFromCart(${item.id})" style="cursor: pointer; color: red;">Remove</small>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `Total: $${total.toLocaleString()}`;
+            cartBtn.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${cart.reduce((sum, item) => sum + item.quantity, 0)})`;
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function toggleCart() {
+            document.getElementById('cart').classList.toggle('open');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Redirecting to checkout... (Payment gateway integration needed)');
+            // Here you would integrate Stripe, PayPal, etc.
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize
+        loadProducts();
+    </script>
+</body>
+</html>
